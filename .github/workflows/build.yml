@@ -1,0 +1,39 @@
+name: Patch Dexcom APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  patch-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set Up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+
+    - name: Install APKTool and Uber APK Signer
+      run: |
+        mkdir -p bin
+        wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar -O bin/apktool_2.7.0.jar
+        wget https://github.com/patrickfav/uber-apk-signer/releases/download/v1.3.0/uber-apk-signer-1.3.0.jar -O bin/uber-apk-signer-1.3.0.jar
+
+    - name: Make Script Executable
+      run: chmod +x bin/build.sh
+
+    - name: Run APK Patcher Script
+      run: |
+        ./bin/build.sh path/to/your.apk
+
+    - name: Upload Patched APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: Patched-APK
+        path: dexcom.patched.apk
