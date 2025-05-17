@@ -37,8 +37,8 @@ jobs:
       run: |
         ./bin/build.sh ./bin/dexcom.apk
 
-    - name: Upload Patched APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: Patched-APK
-        path: dexcom.patched.apk
+    #- name: Upload Patched APK
+    #  uses: actions/upload-artifact@v3
+    #  with:
+    #    name: Patched-APK
+    #    path: dexcom.patched.apk
